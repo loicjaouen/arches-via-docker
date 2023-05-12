@@ -90,6 +90,7 @@ services:
       - arches-static:/static_root
       - arches-app:/arches_app
       - ../arches_data/:/arches_data
+      - arches_images:${APP_COMP_FOLDER}/uploadedfiles
     networks:
       - arches_net
 
@@ -119,6 +120,7 @@ services:
       - DEPLOY_HOST="${DEPLOY_HOST}"
       - CERT_PATH="${CERT_PATH}"
       - DJANGO_PORT="${DJANGO_PORT}"
+      - CANTALOUPE_DEPLOY_HOST="${CANTALOUPE_DEPLOY_HOST}"
     volumes:
       - logs_nginx:/logs/nginx
       - nginx_ssl:/etc/nginx/ssl
@@ -132,6 +134,18 @@ services:
     restart: always
     depends_on:
       - arches
+    networks:
+      - arches_net
+
+  iiif:
+    container_name: iiif
+    image: iiif
+    build:
+      context: iiif
+    ports:
+      - 8182:8182
+    volumes:
+      - arches_images:/arches_images
     networks:
       - arches_net
 
@@ -171,6 +185,8 @@ volumes:
   certbot_certs:
     external: true
   arches_certbot:
+    external: true
+  arches_images:
     external: true
   redisdata:
   couchdb-data:
