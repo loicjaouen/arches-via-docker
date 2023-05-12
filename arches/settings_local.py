@@ -55,7 +55,17 @@ CELERY_BROKER_URL = "redis://@arches_redis:6379/0"
 #
 # CELERY_BROKER_URL = ""
 
-# CANTALOUPE_HTTP_ENDPOINT = "http://{}:{}".format(get_env_variable("CANTALOUPE_HOST"), get_env_variable("CANTALOUPE_PORT"))
+# defaults
+# CANTALOUPE_DIR = os.path.join(ROOT_DIR, "uploadedfiles")
+# CANTALOUPE_HTTP_ENDPOINT = "http://localhost:8182/"
+
+# CANTALOUPE_DEPLOY_HTTP = get_env_variable("CANTALOUPE_DEPLOY_HTTP")
+# CANTALOUPE_DEPLOY_HOST = get_env_variable("CANTALOUPE_DEPLOY_HOST")
+# CANTALOUPE_DEPLOY_PORT = get_env_variable("CANTALOUPE_DEPLOY_PORT")
+# CANTALOUPE_HTTP_ENDPOINT = "{}://{}".format(CANTALOUPE_DEPLOY_HTTP, CANTALOUPE_DEPLOY_HOST)
+# if CANTALOUPE_DEPLOY_PORT:
+#    CANTALOUPE_HTTP_ENDPOINT = CANTALOUPE_HTTP_ENDPOINT +":"+ CANTALOUPE_DEPLOY_PORT
+
 ELASTICSEARCH_HTTP_PORT = get_env_variable("ESPORT")
 ELASTICSEARCH_HOSTS = [{"scheme": "http", "host": get_env_variable("ESHOST"), "port": int(ELASTICSEARCH_HTTP_PORT)}]
 
