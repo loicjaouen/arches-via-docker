@@ -85,6 +85,7 @@ STATIC_ROOT = "/static_root"
 LANGUAGE_CODE = 'en'
 # Added for v7 internationalization demo
 LANGUAGES = [
+    ('fr', ('French')),
     ('en', ('English')),
     ('ar', ('Arabic')),
     ('he', ('Hebrew')),
