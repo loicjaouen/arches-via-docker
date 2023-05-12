@@ -4,6 +4,7 @@ init-volumes: ## 1. do this only once
 	docker volume create --name=nginx_ssl
 	docker volume create --name=certbot_certs
 	docker volume create --name=arches_certbot
+	docker volume create --name=arches_images
 
 .PHONY: build
 build: ## 2. build images
@@ -43,10 +44,10 @@ volumes-clean-generated: ## 9. delete generated volumes
 
 .PHONY: volumes-clean-created
 volumes-clean-created: ## 10. delete generated volumes (in step 1.)
-	docker volume rm logs_nginx nginx_ssl certbot_certs arches_certbot
+	docker volume rm logs_nginx nginx_ssl certbot_certs arches_certbot arches_images
 
 .PHONY: help
 help: ## 0. this help
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort -k 3
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort -hk 3
 
 .DEFAULT_GOAL := help
